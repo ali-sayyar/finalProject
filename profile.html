@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Main Css Style -->
+    <link rel="stylesheet" href="./main.css">
+    <!--Import Axios -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <!-- import Bootstrap -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title>Profile</title>
+</head>
+
+<body>
+
+
+    <!-- loader -->
+    <div id="loader">
+        <div class="loader-body">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- navbar -->
+    <div class="container">
+        <div class="col-sm-9 m-auto">
+            <nav class="navbar navbar-expand bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./home.html">POST</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="./home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="profile-link" class="nav-link" href="./profile.html">Profile</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <button id="login-show" class="btn btn-outline-success me-1" data-bs-toggle="modal"
+                                data-bs-target="#login-modal">Login</button>
+                            <button id="regster-show" class="btn btn-outline-success me-1" data-bs-toggle="modal"
+                                data-bs-target="#regster-modal">Regster</button>
+                            <a href="./profile.html">
+                                <div id="nav-profile"></div>
+                            </a>
+                            <button id="logout-btn" class="btn btn-outline-danger btn-sm ms-3"
+                                style="display: none;">Logout</button>
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <!-- Profile Info -->
+    <div class="container my-5">
+        <div class="col-sm-9 m-auto">
+            <div class="card border-success mb-3">
+                <div class="card-body">
+                    <div id="profile-div" class="row text-center text-sm-start g-4">
+                        <h1>You Are Not Logged In</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">UserName:</label>
+                            <input type="text" class="form-control" id="login-username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="login-pass">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="login-btn" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Regster Modal -->
+    <div class="modal fade" id="regster-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Regster</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" id="regster-email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="regster-pass">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">UserName:</label>
+                            <input type="text" class="form-control" id="regster-username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="regster-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Image:</label>
+                            <input type="file" class="form-control" id="regster-image">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="regster-btn" class="btn btn-primary">Regster</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Post Modal -->
+    <div class="modal fade" id="add-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fw-bold fs-5" id="add-post-head">Post</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Title:</label>
+                            <input type="text" class="form-control" id="post-title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Body:</label>
+                            <input type="text" class="form-control" id="post-body">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Image:</label>
+                            <input type="file" class="form-control" id="post-image">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="post-btn" class="btn btn-primary">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Posts -->
+    <div class="container">
+        <div class="col-sm-9 m-auto">
+            <h1 class="my-3">Posts</h1>
+            <div id="profile-posts">
+                <!-- <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success">
+                        <img class="rounded-circle" src="./imgs/profile/p-1.jpg" style="width: 40px;height: 40px;">
+                        <span class="fw-bold">@AliSa</span>
+                    </div>
+                    <div class="card-body">
+                        <img src="./imgs/posts/post-1.jpg" class="img-fluid rounded">
+                        <h6 class="text-black-50 mt-1">5 min ago</h6>
+                        <h5 class="card-title">Success card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pen" viewBox="0 0 16 16">
+                            <path
+                                d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                        </svg>
+                        <span class="text-secondary">(3) Comint</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <script src="./main.js"></script>
+    <script>
+        const id = new URLSearchParams(location.search).get('id') || JSON.parse(localStorage.getItem('user')).id
+        axios.get(`${beasURL}/users/${id}`)
+            .then(res => {
+                const user = res.data.data
+                document.getElementById('profile-div').innerHTML = `
+                        <div class="col-lg-3 d-flex">
+                            <img class="img-fluid m-auto rounded-circle" src="${user.profile_image}"
+                                style="width: 140px;height: 140px;">
+                        </div>
+                        <div class="col-lg-5 col-sm-6 d-flex flex-column justify-content-evenly"
+                            style="font-size: 18px;font-weight: 500;">
+                            <div>${user.name}</div>
+                            <div>${user.username}</div>
+                            <div>${user.email}</div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 text-secondary d-flex flex-column justify-content-evenly">
+                            <div><span class="fs-1 text-dark">${user.posts_count}</span>Posts</div>
+                            <div><span class="fs-1 text-dark">${user.comments_count}</span>Comments</div>
+                        </div>
+            `
+            })
+
+        axios.get(`${beasURL}/users/${id}/posts`)
+            .then(res => {
+                res.data.data.forEach(data => {
+                    document.getElementById('profile-posts').prepend(createPosts(data))
+                });
+                toggleLoader(false)
+            })
+    </script>
+</body>
+
+</html>

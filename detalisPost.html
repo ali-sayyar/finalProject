@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Main Css Style -->
+    <link rel="stylesheet" href="./main.css">
+    <!--Import Axios -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <!-- import Bootstrap -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title>Post Detalis</title>
+</head>
+
+<body>
+
+    <!-- loader -->
+    <div id="loader">
+        <div class="loader-body">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- navbar -->
+    <div class="container">
+        <div class="col-sm-9 m-auto">
+            <nav class="navbar navbar-expand bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./home.html">POST</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="profile-link" class="nav-link" href="./profile.html">Profile</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <button id="login-show" class="btn btn-outline-success me-1" data-bs-toggle="modal"
+                                data-bs-target="#login-modal">Login</button>
+                            <button id="regster-show" class="btn btn-outline-success me-1" data-bs-toggle="modal"
+                                data-bs-target="#regster-modal">Regster</button>
+                            <a href="./profile.html">
+                                <div id="nav-profile"></div>
+                            </a>
+                            <button id="logout-btn" class="btn btn-outline-danger btn-sm ms-3"
+                                style="display: none;">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">UserName:</label>
+                            <input type="text" class="form-control" id="login-username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="login-pass">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="login-btn" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Regster Modal -->
+    <div class="modal fade" id="regster-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Regster</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" id="regster-email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="regster-pass">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">UserName:</label>
+                            <input type="text" class="form-control" id="regster-username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="regster-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Image:</label>
+                            <input type="file" class="form-control" id="regster-image">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="regster-btn" class="btn btn-primary">Regster</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Posts -->
+    <div class="container">
+        <div class="col-sm-9 m-auto">
+            <div id="post-detalis">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="./main.js"></script>
+    <script>
+        const id = new URLSearchParams(location.search).get('id')
+
+        // get post detalis
+        getPostDetalis()
+        function getPostDetalis() {
+            axios.get(beasURL + '/posts/' + id)
+                .then((res) => {
+                    createPost(res.data.data)
+                    loginLogoutCheck()
+                    toggleLoader(false)
+                })
+        }
+        function createPost(data) {
+            document.getElementById('post-detalis').innerHTML = `
+                <h4 class="mb-4 mt-3">${data.author.name}</h4>
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success">
+                        <img class="rounded-circle" src="${data.author['profile_image']}" style="width: 40px;height: 40px;">
+                        <span class="fw-bold">@${data.author.username}</span>
+                    </div>
+                    <div class="card-body">
+                        <img class="img-fluid rounded" src="${data.image}" alt="Null">
+                        <h6 class="text-black-50 mt-1">${data.created_at}</h6>
+                        <h5 class="card-title">${data.title || ''}</h5>
+                        <p class="card-text">${data.body}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-success p-0">
+                        ${createComments(data.comments)}
+                        <div id='input-group-div' class="input-group">
+                            <input id="comment-inp" type="text" class="form-control rounded-0" placeholder="Write Your Comment">
+                            <button onclick="sendCommentFun()" class="input-group-text rounded-0" id="send-comment-btn">SEND</button>
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+        function createComments(data) {
+            let com = ''
+            data.forEach(el => {
+                com += `
+                <div class="comments p-2 px-3 mb-1" style="background-color:#4aff1342;">
+                    <div class="profile me-3 d-flex align-items-center">
+                        <img class="fluid-img rounded-circle me-1" src="${el.author.profile_image}" style="width: 35px;height: 35px;">
+                        <h6 class="">@${el.author.username}</h6>
+                    </div>
+                    <p class="body ps-5">${el.body}</p>
+                </div>
+                `
+            });
+            return com
+        }
+        function sendCommentFun() {
+            const comment = document.getElementById('comment-inp').value
+            if (comment) {
+                axios.post(beasURL + '/posts/' + id + '/comments', { 'body': comment }, { headers: { 'authorization': `Bearer ${localStorage.getItem('token')}` } })
+                    .then(res => {
+                        getPostDetalis()
+                    })
+            }
+        }
+    </script>
+</body>
+
+</html>
